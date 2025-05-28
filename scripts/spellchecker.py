@@ -1,4 +1,5 @@
 import polib 
+import re
 from spylls.hunspell import Dictionary
 import argparse
 
@@ -22,7 +23,7 @@ def check_spelling(po_file_path, uzbek_dictionary):
     
     for entry in po:
         if entry.msgstr:
-            words = entry.msgstr.split()
+            words = re.findall(r"\b[\wʻʼ']+\b", entry.msgstr, re.UNICODE)
             for word in words:
                 if not uzbek_dictionary.lookup(word):
                     suggestions = ", ".join(list(uzbek_dictionary.suggest(word)))
