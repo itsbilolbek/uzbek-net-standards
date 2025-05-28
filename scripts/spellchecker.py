@@ -23,7 +23,12 @@ def check_spelling(po_file_path, uzbek_dictionary):
     
     for entry in po:
         if entry.msgstr:
-            words = re.findall(r"\b[\wʻʼ']+\b", entry.msgstr, re.UNICODE)
+            # Regex expression to match words, including those with apostrophes
+            # (?<![%$]) - negative lookbehind to ensure the word does not start with % or $, for example: "%s" or "$1"
+            # \b[\wʻʼ']+(?:-[\wʻʼ']+)*\b - matches words with optional hyphens and apostrophes
+            pattern = re.compile(r"(?<![%$])\b[\wʻʼ']+(?:-[\wʻʼ']+)*\b", re.UNICODE)
+
+            words = re.findall(pattern, entry.msgstr)
             for word in words:
                 if not uzbek_dictionary.lookup(word):
                     suggestions = ", ".join(list(uzbek_dictionary.suggest(word)))
@@ -46,6 +51,7 @@ if __name__ == "__main__":
         print(f"Spelling issues found in '{args.po_file}':")
         for issue in issues:
             print(issue)
+            print()
     else:
         print(f"No spelling issues found in '{args.po_file}'.")
 
