@@ -12,3 +12,6 @@ Lugʻat sxemasida ishlaydi, faqat chiqgandan soʻng eski ishlatilgan holatlar ha
 
 #### U+02BC - <ʼ> tutuq belgisi
 #### U+02BB - <ʻ> oʻ va gʻ harfida ishlatiladigan belgi
+
+## Skriptlar
+
